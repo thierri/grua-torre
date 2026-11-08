@@ -14,6 +14,19 @@ FOTO = 'Construction crane on clear sky (20151112 122747 1JC) (23902449492).jpg'
 CENA = {'power': True, 'r': 24, 'attach': 'cacamba', 'hanging': True, 'h': 22}
 SIMULAR = 2.0
 TITULO = ['Simulador', 'completo']
+FONTE = "font-family:Inter;font-weight:900;font-size:150px;line-height:.95;letter-spacing:-.02em"
+# python3 -I video/tools/thumb_yt.py --variantes  →  exports/thumb-variantes/*.png (+ prancha.png)
+VARIANTES = {
+    '1-inter-maiusculo': ("font-family:Inter;font-weight:900;font-size:128px;line-height:.98;letter-spacing:-.02em;text-transform:uppercase", None),
+    '2-inter-minusculo': ("font-family:Inter;font-weight:900;font-size:165px;line-height:.92;letter-spacing:-.04em;text-transform:lowercase", None),
+    '3-league-gothic': ("font-family:'League Gothic';font-weight:400;font-size:190px;line-height:.88;letter-spacing:.01em;text-transform:uppercase", None),
+    '4-oswald': ("font-family:Oswald;font-weight:700;font-size:170px;line-height:.98;text-transform:uppercase", None),
+    '5-archivo-black': ("font-family:'Archivo Black';font-size:116px;line-height:1.05;letter-spacing:-.01em;text-transform:uppercase", None),
+    '6-montserrat': ("font-family:Montserrat;font-weight:900;font-size:120px;line-height:1.02;letter-spacing:-.01em;text-transform:uppercase", None),
+    '7-poppins-minusculo': ("font-family:Poppins;font-weight:800;font-size:150px;line-height:.98;letter-spacing:-.03em;text-transform:lowercase", None),
+    '8-misto': ("font-family:Inter;line-height:1", "<span style=\"display:block;font-weight:700;font-size:96px;letter-spacing:-.02em\">simulador</span>"
+               "<span style=\"display:block;font-family:'League Gothic';font-size:250px;line-height:.85;letter-spacing:.01em\">COMPLETO</span>"),
+}
 ENDERECO = 'thierri.github.io/grua-torre'
 
 
@@ -66,11 +79,15 @@ const ready = wait(() => window.sim && window.sim.pres).then(pose);
 if (window.__hyperframes) window.__hyperframes.registerFrameSource({{ element: document.getElementById('stage'), ready, render: () => pose() }});
 </script></body></html>
 ''')
-snapshot(S, os.path.join(P, 'sim-169.png'))
+import sys
+VAR = '--variantes' in sys.argv
+if not (VAR and os.path.exists(os.path.join(P, 'sim-169.png'))):
+    snapshot(S, os.path.join(P, 'sim-169.png'))
+
 
 # Etapa 2: composição
-titulo = '<br>'.join(TITULO)
-open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype html>
+def compor(fonte, titulo, out):
+    open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920, height=1080">
 <style>
   html,body{{margin:0;width:1920px;height:1080px;overflow:hidden;background:#1d4f9c;font-family:Inter,system-ui,sans-serif}}
@@ -83,8 +100,7 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
   #barra i{{width:14px;height:14px;border-radius:50%;background:#56606e;display:inline-block}}
   #barra b{{margin-left:18px;background:#0b1118;border-radius:8px;padding:5px 16px;font-weight:600}}
   #janela img{{display:block;width:860px;height:484px}}
-  #titulo{{position:absolute;left:1000px;right:50px;top:60px;color:#fff;font-weight:900;font-size:150px;line-height:.95;
-    letter-spacing:-.02em;text-shadow:0 6px 30px #000a}}
+  #titulo{{position:absolute;left:1000px;right:40px;top:60px;color:#fff;text-shadow:0 6px 30px #000a;{fonte}}}
   svg{{position:absolute;inset:0;z-index:2}}
 </style></head>
 <body><div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1920" data-height="1080" data-fps="30" data-no-timeline>
@@ -101,6 +117,16 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
 <div id="janela"><div id="barra"><i></i><i></i><i></i><b>{ENDERECO}</b></div><img src="sim-169.png"></div>
 </div></body></html>
 ''')
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-snapshot(P, OUT)
-print(OUT)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    snapshot(P, out)
+    print(out)
+
+
+if VAR:
+    D = os.path.join(ROOT, 'exports', 'thumb-variantes')
+    so = [a for a in sys.argv[1:] if not a.startswith('--')]
+    for nome, (fonte, html) in VARIANTES.items():
+        if so and not any(nome.startswith(x) for x in so): continue
+        compor(fonte, html or '<br>'.join(TITULO), os.path.join(D, nome + '.png'))
+else:
+    compor(FONTE, '<br>'.join(TITULO), OUT)
