@@ -13,9 +13,7 @@ FOTO = 'Construction crane on clear sky (20151112 122747 1JC) (23902449492).jpg'
 
 CENA = {'power': True, 'r': 24, 'attach': 'cacamba', 'hanging': True, 'h': 22}
 SIMULAR = 2.0
-TITULO = 'Simulador de grua'
-DESTAQUE = 'feito com IA'
-SELOS = ['Online e grátis', 'Jogue no PC ou celular']
+TITULO = ['Simulador', 'completo']
 ENDERECO = 'thierri.github.io/grua-torre'
 
 
@@ -71,7 +69,7 @@ if (window.__hyperframes) window.__hyperframes.registerFrameSource({{ element: d
 snapshot(S, os.path.join(P, 'sim-169.png'))
 
 # Etapa 2: composição
-selos = ''.join(f'<span>{s}</span>' for s in SELOS)
+titulo = '<br>'.join(TITULO)
 open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920, height=1080">
 <style>
@@ -79,22 +77,14 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
   #root{{position:relative;width:1920px;height:1080px;overflow:hidden}}
   #foto{{position:absolute;left:-2274px;top:-300px;width:4400px}}
   #sombra{{position:absolute;inset:0;background:linear-gradient(90deg,#0000 30%,#06142ccc 62%,#06142cee 100%),linear-gradient(#0000 85%,#06142c99 100%)}}
-  .tag{{position:absolute;padding:12px 26px;border-radius:14px;font-weight:900;font-size:46px;letter-spacing:.04em;
-    text-transform:uppercase;box-shadow:0 8px 30px #0008}}
-  #tagReal{{left:70px;top:880px;background:#fff;color:#0b1730}}
-  #tagSim{{left:1000px;top:318px;background:#ffd21f;color:#0b1730;z-index:3}}
-  #janela{{position:absolute;left:1000px;top:400px;width:860px;border-radius:18px;overflow:hidden;background:#0b1118;
+  #janela{{position:absolute;left:1000px;top:430px;width:860px;border-radius:18px;overflow:hidden;background:#0b1118;
     box-shadow:0 0 0 6px #ffd21f,0 30px 80px #000c}}
   #barra{{height:44px;background:#1b2430;display:flex;align-items:center;gap:10px;padding:0 18px;color:#c9d4e2;font-size:22px;font-weight:600}}
   #barra i{{width:14px;height:14px;border-radius:50%;background:#56606e;display:inline-block}}
   #barra b{{margin-left:18px;background:#0b1118;border-radius:8px;padding:5px 16px;font-weight:600}}
   #janela img{{display:block;width:860px;height:484px}}
-  #titulo{{position:absolute;left:1000px;right:50px;top:44px;color:#fff;font-weight:900;font-size:92px;line-height:.98;
+  #titulo{{position:absolute;left:1000px;right:50px;top:60px;color:#fff;font-weight:900;font-size:150px;line-height:.95;
     letter-spacing:-.02em;text-shadow:0 6px 30px #000a}}
-  #titulo em{{display:block;font-style:normal;color:#ffd21f;font-size:118px}}
-  #selos{{position:absolute;left:1000px;top:958px;display:flex;gap:18px}}
-  #selos span{{background:#fff;color:#0b1730;font-weight:800;font-size:38px;padding:10px 24px;border-radius:999px;box-shadow:0 8px 24px #0008}}
-  #selos span:first-child{{background:#21c35a;color:#fff}}
   svg{{position:absolute;inset:0;z-index:2}}
 </style></head>
 <body><div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1920" data-height="1080" data-fps="30" data-no-timeline>
@@ -107,10 +97,8 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
     <path d="M 920 560 L 962 602 L 908 624"/>
   </g>
 </svg>
-<div id="titulo">{TITULO}<em>{DESTAQUE}</em></div>
-<div id="tagSim" class="tag">Simulador</div>
+<div id="titulo">{titulo}</div>
 <div id="janela"><div id="barra"><i></i><i></i><i></i><b>{ENDERECO}</b></div><img src="sim-169.png"></div>
-<div id="selos">{selos}</div>
 </div></body></html>
 ''')
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
