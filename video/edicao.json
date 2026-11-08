@@ -1,0 +1,36 @@
+{
+  "_leia": "Lista de edição do vídeo. Tempos em segundos do áudio original (Narração.m4a), tirados da transcrição com tempo por palavra (video/build/palavras.json). Depois de mudar algo aqui, rode: python3 -I video/tools/build.py",
+  "audio": "Narração.m4a",
+  "inicio": 3.3,
+  "fim": 312.0,
+  "pausas": { "maxima": 0.9, "alvo": 0.6, "limite_db": -42 },
+  "cortes": [
+    { "de": 15.3,   "ate": 19.2,   "motivo": "repetição: 1ª tentativa de 'Você consegue controlar a grua pelo teclado'" },
+    { "de": 24.0,   "ate": 29.2,   "motivo": "repetição: 1ª tentativa de 'Inclusive é possível ver a inércia do moitão' (sem 'e do gancho')" },
+    { "de": 87.75,  "ate": 93.55,  "motivo": "repetição: 1ª tentativa de 'Mas dá pra segurar... no momento certo'" },
+    { "de": 146.6,  "ate": 152.3,  "motivo": "falso começo: 'Aqui...' antes de 'aqui em cima'" },
+    { "de": 171.2,  "ate": 191.6,  "motivo": "repetição: 'Deixa eu te explicar' e duas tentativas de 'Agora deixa eu te explicar os principais componentes'" },
+    { "de": 197.5,  "ate": 201.05, "motivo": "falso começo: 'A lança, onde o carrinho leva'" },
+    { "de": 213.7,  "ate": 220.1,  "motivo": "falso começo e erro: 'Se não tivesse ele / Se não existisse ele' (sem o contrapeso a grua penderia para frente, não para trás)" },
+    { "de": 225.8,  "ate": 242.75, "motivo": "repetição: 1ª tentativa de 'Quanto mais longe a carga... não sai mais de nenhum lugar'" },
+    { "de": 254.58, "ate": 255.95, "motivo": "erro: 'e o gancho nem sobe nem desce' (no corte o gancho ainda pode descer)" }
+  ],
+  "volume_maquina_db": 0,
+  "antecipar": 0.35,
+  "final": 2.5,
+  "cenas": [
+    { "cena": 0,  "inicio": 3.52 },
+    { "cena": 1,  "inicio": 52.88 },
+    { "cena": 2,  "inicio": 75.76 },
+    { "cena": 3,  "inicio": 102.22 },
+    { "cena": 4,  "inicio": 152.42 },
+    { "cena": 5,  "inicio": 191.96 },
+    { "cena": 6,  "inicio": 209.96 },
+    { "cena": 7,  "inicio": 242.96 },
+    { "cena": 8,  "inicio": 261.22 },
+    { "cena": 9,  "inicio": 268.44 },
+    { "cena": 10, "inicio": 278.18 },
+    { "cena": 11, "inicio": 286.64 },
+    { "cena": 12, "inicio": 301.46 }
+  ]
+}
