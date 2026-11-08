@@ -30,7 +30,7 @@ def snapshot(d, out):
 os.makedirs(P, exist_ok=True)
 foto = os.path.join(P, 'grua-real.jpg')
 if not os.path.exists(foto):
-    url = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + urllib.parse.quote(FOTO.replace(' ', '_')) + '?width=2400'
+    url = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + urllib.parse.quote(FOTO.replace(' ', '_')) + ''
     req = urllib.request.Request(url, headers={'User-Agent': 'grua-torre-thumb/1.0'})
     open(foto, 'wb').write(urllib.request.urlopen(req).read())
 
@@ -77,8 +77,8 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
 <style>
   html,body{{margin:0;width:1920px;height:1080px;overflow:hidden;background:#1d4f9c;font-family:Inter,system-ui,sans-serif}}
   #root{{position:relative;width:1920px;height:1080px;overflow:hidden}}
-  #foto{{position:absolute;left:-1590px;top:-10px;width:3600px}}
-  #sombra{{position:absolute;inset:0;background:linear-gradient(90deg,#0000 30%,#06142ccc 62%,#06142cee 100%)}}
+  #foto{{position:absolute;left:-2274px;top:-300px;width:4400px}}
+  #sombra{{position:absolute;inset:0;background:linear-gradient(90deg,#0000 30%,#06142ccc 62%,#06142cee 100%),linear-gradient(#0000 85%,#06142c99 100%)}}
   .tag{{position:absolute;padding:12px 26px;border-radius:14px;font-weight:900;font-size:46px;letter-spacing:.04em;
     text-transform:uppercase;box-shadow:0 8px 30px #0008}}
   #tagReal{{left:70px;top:880px;background:#fff;color:#0b1730}}
@@ -100,12 +100,12 @@ open(os.path.join(P, 'index.html'), 'w', encoding='utf-8').write(f'''<!doctype h
 <body><div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1920" data-height="1080" data-fps="30" data-no-timeline>
 <img id="foto" src="grua-real.jpg">
 <div id="sombra"></div>
-<div id="tagReal" class="tag">Grua real</div>
 <svg width="1920" height="1080" viewBox="0 0 1920 1080">
-  <defs><marker id="ponta" markerWidth="4" markerHeight="4" refX="2.2" refY="2" orient="auto" markerUnits="strokeWidth">
-    <path d="M0,0 L4,2 L0,4 Z" fill="#ffd21f" stroke="#0b1730" stroke-width=".35"/></marker></defs>
-  <path d="M 420 860 C 560 1010, 820 990, 965 790" fill="none" stroke="#0b1730" stroke-width="38" stroke-linecap="round"/>
-  <path d="M 420 860 C 560 1010, 820 990, 965 790" fill="none" stroke="#ffd21f" stroke-width="26" stroke-linecap="round" marker-end="url(#ponta)"/>
+  <defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity=".7"/></filter></defs>
+  <g filter="url(#sh)" fill="none" stroke="#ffd21f" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 440 680 Q 700 500 958 600"/>
+    <path d="M 920 560 L 962 602 L 908 624"/>
+  </g>
 </svg>
 <div id="titulo">{TITULO}<em>{DESTAQUE}</em></div>
 <div id="tagSim" class="tag">Simulador</div>
