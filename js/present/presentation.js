@@ -81,7 +81,8 @@ export class Presentation {
   caption(title, text, force) {
     const c = this.e.cap;
     const pos = this.opt('capPos') || (this.ui === 'clean' ? 'left' : 'info');
-    c.className = 'show p-' + pos;
+    // vídeo em pé: sem legenda (não há espaço livre; ela cobriria os comandos ou a grua). A narração diz o mesmo.
+    c.className = this.app.video && this.app.fmt === 'f916' ? 'p-' + pos : 'show p-' + pos;
     if (force || title !== undefined) c.querySelector('.ct').textContent = title ?? this.sc.title;
     c.querySelector('.cx').innerHTML = text || '';
     if (!this.app.video) { void c.offsetWidth; c.classList.add('fade'); }
