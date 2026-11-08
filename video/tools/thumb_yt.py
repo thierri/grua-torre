@@ -14,7 +14,18 @@ FOTO = 'Construction crane on clear sky (20151112 122747 1JC) (23902449492).jpg'
 CENA = {'power': True, 'r': 24, 'attach': 'cacamba', 'hanging': True, 'h': 22}
 SIMULAR = 2.0
 TITULO = ['Simulador', 'completo']
-FONTE = "font-family:Inter;font-weight:900;font-size:150px;line-height:.95;letter-spacing:-.02em"
+FONTE = "font-family:Oswald;font-weight:700;font-size:170px;line-height:.98;text-transform:uppercase"
+# python3 -I video/tools/thumb_yt.py --frases  →  exports/thumb-frases/*.png (mesma fonte, outras frases)
+FRASES = [
+    ['Simulador', 'completo'],
+    ['Simulador', 'realista'],
+    ['Simulador', 'no PC'],
+    ['Opere uma', 'grua de torre'],
+    ['Grua de torre', 'no navegador'],
+    ['Simulador', 'grátis'],
+    ['Fiz com IA', 'um simulador'],
+    ['Pilote uma', 'grua real'],
+]
 # python3 -I video/tools/thumb_yt.py --variantes  →  exports/thumb-variantes/*.png (+ prancha.png)
 VARIANTES = {
     '1-inter-maiusculo': ("font-family:Inter;font-weight:900;font-size:128px;line-height:.98;letter-spacing:-.02em;text-transform:uppercase", None),
@@ -80,7 +91,7 @@ if (window.__hyperframes) window.__hyperframes.registerFrameSource({{ element: d
 </script></body></html>
 ''')
 import sys
-VAR = '--variantes' in sys.argv
+VAR = '--variantes' in sys.argv or '--frases' in sys.argv
 if not (VAR and os.path.exists(os.path.join(P, 'sim-169.png'))):
     snapshot(S, os.path.join(P, 'sim-169.png'))
 
@@ -100,7 +111,7 @@ def compor(fonte, titulo, out):
   #barra i{{width:14px;height:14px;border-radius:50%;background:#56606e;display:inline-block}}
   #barra b{{margin-left:18px;background:#0b1118;border-radius:8px;padding:5px 16px;font-weight:600}}
   #janela img{{display:block;width:860px;height:484px}}
-  #titulo{{position:absolute;left:1000px;right:40px;top:60px;color:#fff;text-shadow:0 6px 30px #000a;{fonte}}}
+  #titulo{{position:absolute;left:1000px;right:40px;top:60px;white-space:nowrap;color:#fff;text-shadow:0 6px 30px #000a;{fonte}}}
   svg{{position:absolute;inset:0;z-index:2}}
 </style></head>
 <body><div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1920" data-height="1080" data-fps="30" data-no-timeline>
@@ -114,6 +125,9 @@ def compor(fonte, titulo, out):
   </g>
 </svg>
 <div id="titulo">{titulo}</div>
+<script>{{const t=document.getElementById('titulo');let f=parseFloat(getComputedStyle(t).fontSize);
+const ok=()=>t.scrollWidth<=t.clientWidth+1&&t.offsetHeight<=350;
+document.fonts.ready.then(()=>{{while(!ok()&&f>60){{f-=4;t.style.fontSize=f+'px';}}}});}}</script>
 <div id="janela"><div id="barra"><i></i><i></i><i></i><b>{ENDERECO}</b></div><img src="sim-169.png"></div>
 </div></body></html>
 ''')
@@ -122,7 +136,11 @@ def compor(fonte, titulo, out):
     print(out)
 
 
-if VAR:
+if '--frases' in sys.argv:
+    D = os.path.join(ROOT, 'exports', 'thumb-frases')
+    for i, fr in enumerate(FRASES, 1):
+        compor(FONTE, '<br>'.join(fr), os.path.join(D, f'{i}.png'))
+elif VAR:
     D = os.path.join(ROOT, 'exports', 'thumb-variantes')
     so = [a for a in sys.argv[1:] if not a.startswith('--')]
     for nome, (fonte, html) in VARIANTES.items():
