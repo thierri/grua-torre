@@ -13,7 +13,7 @@ FOTO = 'Construction crane on clear sky (20151112 122747 1JC) (23902449492).jpg'
 
 CENA = {'power': True, 'r': 24, 'attach': 'cacamba', 'hanging': True, 'h': 22}
 SIMULAR = 2.0
-TITULO = ['Simulador', 'completo']
+TITULO = ['Simulador', 'realista']
 FONTE = "font-family:Oswald;font-weight:700;font-size:170px;line-height:.98;text-transform:uppercase"
 # python3 -I video/tools/thumb_yt.py --frases  →  exports/thumb-frases/*.png (mesma fonte, outras frases)
 FRASES = [
